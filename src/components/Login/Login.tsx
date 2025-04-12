@@ -35,32 +35,37 @@ export function Login() {
 
     return (
         <>
-            <div className="main">
+            <div className="login">
+                <header>
+                    <img src="/" alt=""/>
+                </header>
                 <h1>Login</h1>
-                <form onSubmit={handleSubmit}>
+                <form className="form" onSubmit={handleSubmit}>
                     <div className="input-group">
-                        <label htmlFor="email">Email</label>
                         <br/>
                         <input
+                            className="input"
                             type="text"
                             id="email"
                             name="email"
                             onChange={(e) => setEmail(e.target.value)}
+                            placeholder={"Email"}
                             required
                         />
                     </div>
                     <div className="input-group">
-                        <label htmlFor="password">Password</label>
                         <br/>
                         <input
+                            className="input"
                             type="password"
                             id="password"
                             name="password"
+                            placeholder={"Password"}
                             onChange={(e) => setPassword(e.target.value)}
                             required
                         />
                     </div>
-                    <button type="submit">Login</button>
+                    <button className="submit" type="submit">Login</button>
                 </form>
 
                 {/* 7. Show results or errors */}

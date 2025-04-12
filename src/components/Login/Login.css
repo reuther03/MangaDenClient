@@ -1,8 +1,42 @@
-﻿.main{
+﻿.login{
     margin: 0;
     padding: 0;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+.form {
+    margin: 100px ;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.submit {
+    background-color: #000;
+    height: auto;
+    width: 40%;
+    color: #fff;
+    font-size: 1.5rem;
+    margin-top: 1.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+}
+
+.submit:hover {
+    background-color: cadetblue;
+}
+
+.input {
+    font-size: 1.5rem;
+    padding: 0.5rem;
+    margin: 0.5rem 0;
+    border-radius: 10px;
+    border: 1px solid #000;
+    transition: background-color 0.3s;
 }
