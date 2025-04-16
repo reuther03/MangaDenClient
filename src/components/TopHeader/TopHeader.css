@@ -1,8 +1,8 @@
-﻿.top-header {
+﻿#top-header {
+    background-color: #f8f8f8;
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    padding: 1rem;
+    border-bottom: 2px solid #ccc;
 }
 
 a {
@@ -11,19 +11,35 @@ a {
 }
 
 a:hover {
-    color: #45e3d1;
+    color: #2cc4b2;
 }
 
 ul {
     list-style: none;
-    margin: 0;
+    margin: 0 15em 0 15em;
     padding: 0;
     gap: 1rem;
     display: flex;
     flex-direction: row;
+    align-items: center;
+    justify-content: center;
 }
 
 li {
-    margin: 0.5rem 0;
-    padding: 0.5rem;
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.basket {
+    display: inline-block;      /* ensures background/padding wrap the text */
+    background-color: #2cc4b2;  /* teal background */
+    color: #fff;                /* white text */
+    text-decoration: none;
+    padding: 0.7rem 1rem;       /* add button-like padding */
+    border-radius: 2px;         /* optional rounded corners */
+}
+
+.basket:hover {
+    color: white;                /* keep text white on hover */
+    background-color: #09423a;  /* darker teal on hover */
 }
