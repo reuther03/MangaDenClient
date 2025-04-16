@@ -5,24 +5,20 @@ import {Link} from "react-router-dom";
 function TopHeader() {
     return (
         <>
-            <div className="main">
+            <header>
                 <div className="top-header">
-                    <div className="logo">
-                        <img src="/logoxd.png" alt="Logo" className="logo"/>
-                    </div>
-                    <div className="search-bar">
-                        <input type="text" placeholder="Search..." />
-                        <button type="submit">
-                            <img src="/search.png" alt=""/>
-                        </button>
-                    </div>
-                    <div className="login">
-                        <Link to="/login">
-                            <button>Login</button>
-                        </Link>
-                    </div>
+                    <ul>
+                        <li><Link to="/">Contect us</Link></li>
+                    </ul>
+                    <ul>
+                        <li><Link to="/login">Login</Link></li>
+                        {/*<li><Link to="/register">Zarejestruj się</Link></li>*/}
+                        <div>
+                            <li><Link to="/Basket">Basket</Link></li>
+                        </div>
+                    </ul>
                 </div>
-            </div>
+            </header>
         </>
     );
 }

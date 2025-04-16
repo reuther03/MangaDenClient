@@ -1,24 +1,20 @@
 import './App.css'
-import Navbar from "./components/Navbar.tsx";
 import TopHeader from "./components/TopHeader/TopHeader.tsx";
-import {Route, Routes} from "react-router-dom";
-import {Login} from "./components/Login/Login.tsx";
 
 function App() {
 
 
     return (
         <>
-            <Routes>
-                <Route path="/" element={
-                    <>
-                        <TopHeader/>
-                        <Navbar/>
-                    </>
-                }/>
-                {/* Add more routes here */}
-                <Route path="/login" element={<Login/>}/>
-            </Routes>
+            <TopHeader/>
+            {/*<Routes>*/}
+            {/*    <Route path="/" element={<h1>Home</h1>}/>*/}
+            {/*    <Route path="/about" element={<h1>About</h1>}/>*/}
+            {/*    <Route path="/services" element={<h1>Services</h1>}/>*/}
+            {/*    <Route path="/contact" element={<h1>Contact</h1>}/>*/}
+            {/*    <Route path="/login" element={<Login/>}/>*/}
+            {/*</Routes>*/}
+            {/*<Footer></Footer>*/}
         </>
     )
 }

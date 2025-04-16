@@ -1,4 +1,4 @@
-﻿interface LoginRespones {
+﻿interface LoginResponse {
     value: {
         token: string;
         userId: string;
@@ -11,4 +11,4 @@
     message: string;
 }
 
-export default LoginRespones;
+export default LoginResponse;
