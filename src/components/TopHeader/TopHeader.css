@@ -1,8 +1,8 @@
 ﻿#top-header {
-    background-color: #f8f8f8;
+    background-color: white;
     display: flex;
     justify-content: space-between;
-    border-bottom: 2px solid #ccc;
+    border-bottom: 0.12rem solid #ccc;
 }
 
 a {
@@ -31,15 +31,15 @@ li {
 }
 
 .basket {
-    display: inline-block;      /* ensures background/padding wrap the text */
-    background-color: #2cc4b2;  /* teal background */
-    color: #fff;                /* white text */
+    display: inline-block;
+    background-color: #2cc4b2;
+    color: #fff;
     text-decoration: none;
-    padding: 0.7rem 1rem;       /* add button-like padding */
-    border-radius: 2px;         /* optional rounded corners */
+    padding: 0.7rem 1rem;
+    border-radius: 2px;
 }
 
 .basket:hover {
-    color: white;                /* keep text white on hover */
-    background-color: #09423a;  /* darker teal on hover */
+    color: white;
+    background-color: #226e62;
 }
