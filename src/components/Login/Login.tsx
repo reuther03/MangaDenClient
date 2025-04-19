@@ -12,7 +12,6 @@ export function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-    const [loginResult, setLoginResult] = useState<LoginResponse| null>(null);
     const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
     async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -21,7 +20,6 @@ export function Login() {
         try {
             const response = await axios.post<LoginResponse>(url, { email, password });
             console.log('Login success:', response.data);
-            setLoginResult(response.data);
             setErrorMessage(null);
             localStorage.setItem('token', response.data.value.token)
             navigate('/', {replace: true})
@@ -33,7 +31,6 @@ export function Login() {
                 console.error('Unexpected error:', err);
                 setErrorMessage('An unexpected error occurred.');
             }
-            setLoginResult(null);
         }
     }
 
