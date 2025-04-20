@@ -48,7 +48,7 @@ export function Home() {
 
     return (
         <>
-            <div className="item-grid">
+            <div className="items-grid">
                 {items.map(i => (
                     <ItemCard key={i.id} item={i} />
                 ))}
