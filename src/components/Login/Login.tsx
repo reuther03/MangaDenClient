@@ -2,11 +2,14 @@
 import {useState} from "react";
 import LoginResponse from "./LoginResponse.ts";
 import axios, {AxiosError} from "axios";
-import { useNavigate } from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
+import {useAuth} from "../../Auth/AuthProvider.tsx";
 
 
 export function Login() {
     const navigate = useNavigate();
+
+    const { login } = useAuth();
 
     const url = 'http://localhost:5000/users-module/User/signin';
     const [email, setEmail] = useState("");
@@ -21,7 +24,7 @@ export function Login() {
             const response = await axios.post<LoginResponse>(url, { email, password });
             console.log('Login success:', response.data);
             setErrorMessage(null);
-            localStorage.setItem('token', response.data.value.token)
+            login(response.data.value.token);
             navigate('/', {replace: true})
         } catch (err: unknown) {
             if (err instanceof AxiosError) {

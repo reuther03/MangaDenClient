@@ -26,13 +26,9 @@ export function Home() {
                     setErrorMessage(response.data.message);
                 }
             } catch (err: unknown) {
-                if (err instanceof AxiosError) {
-                    console.error('Login error:', err.response?.data || err.message);
-                    setErrorMessage(err.response?.data.message || 'An error occurred during login.');
-                } else {
-                    console.error('Unexpected error:', err);
-                    setErrorMessage('An unexpected error occurred.');
-                }
+                if (axios.isCancel(err)) return;
+                const axErr = err as AxiosError<{ message?: string }>;
+                setErrorMessage(axErr.response?.data?.message ?? 'Unable to load items.');
             } finally {
                 setLoading(false);
             }
@@ -48,6 +44,10 @@ export function Home() {
 
     return (
         <>
+            {errorMessage && (
+                <p>{errorMessage}</p>
+            )}
+
             <div className="items-grid">
                 {items.map(i => (
                     <ItemCard key={i.id} item={i} />

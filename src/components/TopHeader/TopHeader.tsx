@@ -3,8 +3,18 @@ import {Link} from "react-router-dom";
 import axios, {AxiosError} from "axios";
 import {BasketResponse} from "./Responses/BasketResponse.ts";
 import {useEffect, useState} from "react";
+import {useAuth} from "../../Auth/AuthProvider.tsx";
 
 export function useBasketCount() {
+
+}
+
+
+function TopHeader() {
+
+    const {user, logout} = useAuth();
+    console.log(user)
+
     const [count, setCount] = useState(0);
     const [error, setError] = useState<string | null>(null);
     const basketUrl =
@@ -15,6 +25,11 @@ export function useBasketCount() {
 
         (async () => {
             try {
+                if (!user){
+                    setCount(0);
+                    setError(null);
+                    return;
+                }
                 const {data} = await axios.get<BasketResponse>(basketUrl, {
                     signal: controller.signal,
                     headers: {
@@ -24,8 +39,9 @@ export function useBasketCount() {
 
                 if (data.isSuccess) {
                     setCount(data.value.basketItems.reduce((sum, item) => sum + item.quantity, 0));
+                    setError(null)
                 } else {
-                    setError(data.message);
+                    setError(data.message ?? 'Unable to load basket');
                 }
             } catch (err) {
                 if (!axios.isCancel(err)) {
@@ -35,27 +51,7 @@ export function useBasketCount() {
         })();
 
         return () => controller.abort();
-    }, []);
-
-    return {count, error};
-}
-
-
-function TopHeader() {
-
-    const {count, error} = useBasketCount();
-    const user = () => {
-        const token = localStorage.getItem('token');
-        if (token) {
-            const user = JSON.parse(atob(token.split('.')[1]));
-            return (
-                <div className="user-info">
-                    <span >{user.name}</span>
-                </div>
-            );
-        }
-        return <Link to="/login">Login</Link>;
-    }
+    }, [user]);
 
     return (
         <>
@@ -65,9 +61,14 @@ function TopHeader() {
                         <li><Link to="/">Contect us</Link></li>
                     </ul>
                     <ul>
-                        <li>
-                            {user()}
-                        </li>
+                        {user ? (
+                            <>
+                                <span>Hello {user.name}</span>
+                                <button onClick={logout}>Logout</button>
+                            </>
+                        ) : (
+                            <Link to="/login">Login</Link>
+                        )}
                         <li>
                             <Link className={"basket"} to="/basket">Basket ({count})</Link>
                             {error && <p style={{color: 'red'}}>Error: {error}</p>}
