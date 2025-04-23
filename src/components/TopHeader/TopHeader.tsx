@@ -3,6 +3,19 @@ import {Link} from "react-router-dom";
 
 
 function TopHeader() {
+    const user =  () => {
+        const token = localStorage.getItem('token');
+        if (token) {
+            const user = JSON.parse(atob(token.split('.')[1]));
+            return (
+                <div className="user-info">
+                    <span >{user.name}</span>
+                </div>
+            );
+        }
+        return <Link to="/login">Login</Link>;
+    }
+
     return (
         <>
             <nav>
@@ -12,11 +25,10 @@ function TopHeader() {
                     </ul>
                     <ul>
                         <li>
-                            <Link to="/login">Login</Link>
+                            {user()}
                         </li>
-                        {/*<li><Link to="/register">Zarejestruj się</Link></li>*/}
                         <li>
-                            <Link className={"basket"} to="/basket">Basket</Link>
+                            <Link className={"basket"} to="/basket">Basket ({})</Link>
                         </li>
                     </ul>
                 </div>
