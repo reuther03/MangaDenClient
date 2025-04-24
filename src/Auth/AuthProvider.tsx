@@ -8,7 +8,6 @@ export interface UserInfo {
     role: string;
 }
 
-/** Raw payload that comes out of jwt-decode */
 interface RawJwt {
     sub: string;
     email?: string;
