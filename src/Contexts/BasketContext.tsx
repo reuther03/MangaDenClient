@@ -1,7 +1,9 @@
 ﻿import {createContext, useCallback, useContext, useState} from 'react';
-import axios from 'axios';
+import axios, {AxiosError} from 'axios';
 import {useAuth} from "../Auth/AuthProvider.tsx";
 import {BasketResponse} from "../components/TopHeader/Responses/BasketResponse.ts";
+import {toast} from "react-toastify";
+import {PostResponse} from "../Responses/PostResponse.ts";
 
 interface BasketContextValue {
     count: number;
@@ -27,21 +29,29 @@ export function BasketProvider({children}: { children: React.ReactNode }) {
         else setCount(0);
     }, [token]);
 
-    const add = useCallback(
-        async (marketplaceItemId: string) => {
-            if (!token) throw new Error('User not authenticated');
-
-            await axios.post(
+    const add = async (marketplaceItemId: string) => {
+        try {
+            const res = await axios.post<PostResponse>(
                 `${baseURL}/add-item`,
                 {marketplaceItemId},
                 {headers: {Authorization: `Bearer ${token}`}}
             );
 
-            await refresh();
-            setCount((c) => c);
-        },
-        [token, refresh]
-    );
+            if (res.data.isSuccess) {
+                await refresh();
+                toast.success("✓ Added to basket");
+            } else {
+
+                toast.error(res.data.message || "Something went wrong");
+            }
+        } catch (err) {
+
+            const axErr = err as AxiosError<PostResponse>;
+            const apiMsg = axErr.response?.data?.message;
+
+            toast.error(apiMsg ?? axErr.message ?? "Network error");
+        }
+    };
 
     return (
         <BasketContext.Provider value={{count, refresh, add}}>
