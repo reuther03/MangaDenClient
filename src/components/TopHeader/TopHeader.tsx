@@ -1,6 +1,6 @@
 ﻿import './TopHeader.css';
-import {Link} from "react-router-dom";
-import {useEffect} from "react";
+import {Link, useNavigate} from "react-router-dom";
+import {useEffect, useState} from "react";
 import {useAuth} from "../../Auth/AuthProvider.tsx";
 import {useBasket} from "../../Contexts/BasketContext.tsx";
 
@@ -8,10 +8,20 @@ function TopHeader() {
 
     const {user, logout, token} = useAuth();
     const {count, refresh} = useBasket()
+    const [searchTerm, setSearchTerm] = useState('');
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (token) refresh();
     }, [token, refresh]);
+
+    const handleSubmit = (event: React.FormEvent) => {
+        event.preventDefault();
+        const term = searchTerm.trim();
+        if (!term) return;
+
+        navigate(`/manga?term=${encodeURIComponent(term.charAt(0).toUpperCase() + term.slice(1))}`);
+    }
 
     return (
         <>
@@ -22,10 +32,17 @@ function TopHeader() {
                     </ul>
                     <ul>
                         <li className="input-bar">
-                            <input type="text" placeholder="Search..."/>
-                            <button>
-                                Search
-                            </button>
+                            <form onSubmit={handleSubmit} className="input-bar">
+                                <label htmlFor="search-input"/>
+                                <input
+                                    id="search-input"
+                                    type="text"
+                                    value={searchTerm}
+                                    placeholder="Search…"
+                                    onChange={e => setSearchTerm(e.target.value)}
+                                />
+                                <button type="submit">Search</button>
+                            </form>
                         </li>
                     </ul>
                     <ul className="account">

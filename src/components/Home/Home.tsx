@@ -6,7 +6,7 @@ import {ItemCard} from "../ItemCard/ItemCard.tsx";
 import "./Home.css";
 
 export function Home() {
-    const url = 'http://localhost:5000/marketpalce-module/Marketplace/marketplaceItems';
+    const url = 'http://localhost:5000/marketpalce-module/Marketplace/marketplace-items';
 
     const [items, setItems] = useState<MarketplaceItemDto[]>([]);
     const [errorMessage, setErrorMessage] = useState<string | null>(null);

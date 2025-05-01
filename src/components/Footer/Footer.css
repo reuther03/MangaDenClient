@@ -1,6 +1,6 @@
 ﻿footer {
     display: flex;
-    justify-content: space-around; /* or space-between */
+    justify-content: space-around;
     padding: 2rem 1rem;
 
 }
