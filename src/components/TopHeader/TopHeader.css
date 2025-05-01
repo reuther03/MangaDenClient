@@ -3,6 +3,23 @@
     display: flex;
     justify-content: space-between;
     border-bottom: 0.12rem solid #ccc;
+    box-sizing: border-box;
+    position: relative;
+    align-items: center;
+    padding: 0 10rem;
+    border-bottom: .12rem solid #ccc;
+    max-width: 960rem;
+    margin: 0 auto;
+    width: 100%;
+}
+
+#top-header ul {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    list-style: none;
 }
 
 a {
@@ -14,20 +31,10 @@ a:hover {
     color: #2cc4b2;
 }
 
-ul {
-    list-style: none;
-    margin: 0 15em 0 15em;
-    padding: 0;
-    gap: 1rem;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-}
-
 li {
     font-size: 20px;
     font-weight: 500;
+    list-style: none;
 }
 
 .basket {
@@ -35,11 +42,30 @@ li {
     background-color: #2cc4b2;
     color: #fff;
     text-decoration: none;
-    padding: 0.7rem 1rem;
+    padding: 1.3rem 1rem;
     border-radius: 2px;
+
 }
 
 .basket:hover {
     color: white;
     background-color: #226e62;
+}
+
+.input-bar {
+    display: flex;
+    align-items: center;
+    max-width: 100%;
+}
+
+.input-bar input {
+    align-items: center;
+    padding: 0.5rem 1rem;
+    border: 1px solid #2cc4b2;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+.input-bar input:focus {
+    outline: 1px solid #2cc4b2;
 }

@@ -2,6 +2,7 @@
 import "./ItemCard.css";
 import {Bounce, ToastContainer} from 'react-toastify';
 import {useBasket} from "../../Contexts/BasketContext.tsx";
+import {Link} from "react-router-dom";
 
 interface Props{
     item : MarketplaceItemDto;
@@ -23,7 +24,7 @@ export function ItemCard({item}: Props) {
                 </div>
                 <div className="item-details">
                     <h2>{item.title}</h2>
-                    <p>{item.author}</p>
+                    <p><Link to={`/authors/${item.author}`}>{item.author}</Link></p>
                     <p>Price: {item.price} PLN</p>
                     <button className="add-to-cart-button" onClick={handleAdd}>Add to Cart</button>
                 </div>

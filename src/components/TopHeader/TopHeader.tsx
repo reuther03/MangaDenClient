@@ -18,9 +18,17 @@ function TopHeader() {
             <nav>
                 <div id="top-header">
                     <ul>
-                        <li><Link to="/">Contect us</Link></li>
+                        <li><Link to="/">Contact</Link></li>
                     </ul>
                     <ul>
+                        <li className="input-bar">
+                            <input type="text" placeholder="Search..."/>
+                            <button>
+                                Search
+                            </button>
+                        </li>
+                    </ul>
+                    <ul className="account">
                         {user ? (
                             <>
                                 <span>{user.name}</span>

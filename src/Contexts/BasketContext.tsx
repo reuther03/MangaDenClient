@@ -13,20 +13,33 @@ interface BasketContextValue {
 
 const BasketContext = createContext<BasketContextValue | undefined>(undefined);
 
+
 export function BasketProvider({children}: { children: React.ReactNode }) {
     const [count, setCount] = useState(0);
-    const token = useAuth().token;
+    const {token} = useAuth()
     const baseURL = 'http://localhost:5000/marketpalce-module/Basket';
 
     const refresh = useCallback(async () => {
-        if (!token) return setCount(0);
 
-        const {data} = await axios.get<BasketResponse>(`${baseURL}`, {
-            headers: {Authorization: `Bearer ${token}`},
-        });
+        if (!token) {
+            setCount(0)
+            return;
+        }
 
-        if (data.isSuccess) setCount(data.value.basketItems.reduce((sum, i) => sum + i.quantity, 0))
-        else setCount(0);
+        try {
+            const {data} = await axios.get<BasketResponse>(
+                `${baseURL}`,
+                {headers: {Authorization: `Bearer ${token}`}}
+            );
+
+            setCount(
+                data.value.basketItems.reduce((sum, i) => sum + i.quantity, 0)
+            );
+
+        } catch (err) {
+            console.error(err);
+            setCount(0);
+        }
     }, [token]);
 
     const add = async (marketplaceItemId: string) => {
@@ -52,6 +65,7 @@ export function BasketProvider({children}: { children: React.ReactNode }) {
             toast.error(apiMsg ?? axErr.message ?? "Network error");
         }
     };
+
 
     return (
         <BasketContext.Provider value={{count, refresh, add}}>
