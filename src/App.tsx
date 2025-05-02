@@ -18,7 +18,8 @@ function App() {
             {/*    <Route path="/services" element={<h1>Services</h1>}/>*/}
             {/*    <Route path="/contact" element={<h1>Contact</h1>}/>*/}
                 <Route path="/login" element={<Login/>}/>
-                <Route path="/manga" element={<ItemSearch/>}></Route>
+                <Route path="/manga" element={<ItemSearch/>}/>
+                <Route path="/manga/author/:authorName" element={<ItemSearch/>}/>
             </Routes>
             <Footer></Footer>
         </>

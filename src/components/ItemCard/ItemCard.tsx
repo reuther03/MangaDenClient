@@ -10,11 +10,10 @@ interface Props{
 
 export function ItemCard({item}: Props) {
     const {add} = useBasket();
+
     const handleAdd = async () => {
         await add(item.id)
     }
-
-
 
     return (
         <>
@@ -24,7 +23,7 @@ export function ItemCard({item}: Props) {
                 </div>
                 <div className="item-details">
                     <h2>{item.title}</h2>
-                    <p><Link to={`/authors/${item.author}`}>{item.author}</Link></p>
+                    <p><Link to={`/manga/author/${encodeURIComponent(item.author)}`}>{item.author}</Link></p>
                     <p>Price: {item.price} PLN</p>
                     <button className="add-to-cart-button" onClick={handleAdd}>Add to Cart</button>
                 </div>
