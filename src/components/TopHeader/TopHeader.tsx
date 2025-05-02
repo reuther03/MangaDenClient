@@ -46,9 +46,9 @@ function TopHeader() {
                         </li>
                     </ul>
                     <ul className="account">
-                        {user ? (
+                        {token ? (
                             <>
-                                <span>{user.name}</span>
+                                <span>{user!.name}</span>
                                 <button onClick={logout}>Logout</button>
                             </>
                         ) : (

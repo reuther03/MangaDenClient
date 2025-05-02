@@ -1,5 +1,5 @@
-﻿import {createContext, ReactNode, useContext, useMemo, useState,} from 'react';
-import {jwtDecode} from "jwt-decode";
+﻿import {createContext, ReactNode, useContext, useEffect, useMemo, useState,} from 'react';
+import {jwtDecode, JwtPayload} from "jwt-decode";
 
 export interface UserInfo {
     id: string;
@@ -38,8 +38,31 @@ const AuthContext = createContext<AuthContextValue | undefined>(undefined);
 export function AuthProvider({children}: { children: ReactNode }) {
     const [token, setToken] = useState(() => localStorage.getItem('token'));
 
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        if (!token) return logout();
+
+        let payload: JwtPayload;
+        try {
+            payload = jwtDecode<JwtPayload>(token);
+        } catch {
+            return logout();
+        }
+
+        if (payload.exp! * 1000 < Date.now()) {
+            return logout();
+        }
+
+        const msUntilExpiry = payload.exp! * 1000 - Date.now();
+        const timer = setTimeout(logout, msUntilExpiry);
+
+        return () => clearTimeout(timer);
+    }, []);
+
+
     const user = useMemo<UserInfo | null>(() => {
-        if (!token) return null;
+        if (!token)
+            return null;
         try {
             return normalise(jwtDecode(token));
         } catch {
