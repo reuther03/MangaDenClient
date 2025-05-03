@@ -5,6 +5,7 @@ import TopHeader from "./components/TopHeader/TopHeader.tsx";
 import {Route, Routes} from "react-router-dom";
 import {Home} from "./components/Home/Home.tsx";
 import {ItemSearch} from "./components/ItemSearch/ItemSearch.tsx";
+import {Basket} from "./components/Basket/Basket.tsx";
 
 function App() {
 
@@ -20,6 +21,7 @@ function App() {
                 <Route path="/login" element={<Login/>}/>
                 <Route path="/manga" element={<ItemSearch/>}/>
                 <Route path="/manga/author/:authorName" element={<ItemSearch/>}/>
+                <Route path="/basket" element={<Basket/>}/>
             </Routes>
             <Footer></Footer>
         </>
