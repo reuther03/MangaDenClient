@@ -1,7 +1,7 @@
 ﻿import {MarketplaceItemDto} from "../ItemCard/MarketplaceItemDto.ts";
 
-export interface BasketItemDto {
+export interface BasketItemsDto {
     id: string;
-    MarketplaceItem: MarketplaceItemDto;
+    marketplaceItem: MarketplaceItemDto;
     quantity: number;
 }

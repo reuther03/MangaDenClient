@@ -1,7 +1,7 @@
-﻿import {BasketItemDto} from "./BasketItemDto.ts";
+﻿import {BasketItemsDto} from "./BasketItemsDto.ts";
 
 export interface BasketDto {
-    BasketItems: BasketItemDto[];
+    basketItems: BasketItemsDto[];
     totalPrice: number;
     totalPoints: number;
 }
