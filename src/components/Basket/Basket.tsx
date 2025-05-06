@@ -4,7 +4,7 @@ import axios, {AxiosError} from "axios";
 import {BasketDto} from "./BasketDto.ts";
 import {useAuth} from "../../Auth/AuthProvider.tsx";
 import {ApiResponse} from "../../Responses/ApiResponse.ts";
-import {ItemCard} from "../ItemCard/ItemCard.tsx";
+import {BasketItemCard} from "./BasketItemCard.tsx";
 
 export function Basket() {
     const url = 'http://localhost:5000/marketpalce-module/Basket';
@@ -45,15 +45,11 @@ export function Basket() {
 
     return (
         <>
-            <div id="basket-main">
+            <div id="basket">
                 {loading && <div className="loading">Loading...</div>}
                 {errorMessage && <div className="error">{errorMessage}</div>}
-                {/*{basket?.BasketItems.map(i => (*/}
-                {/*    <ItemCard key={i.id} item={i.MarketplaceItem}/>*/}
-                {/*))}*/}
-                {/*<div>{basket?.BasketItems.map(x => x.MarketplaceItem.price)}</div>*/}
                 {basket?.basketItems.map(i => (
-                    <ItemCard key={i.id} item={i.marketplaceItem}/>
+                    <BasketItemCard key={i.id} id={i.id} marketplaceItem={i.marketplaceItem} quantity={i.quantity}/>
                 ))}
             </div>
         </>
