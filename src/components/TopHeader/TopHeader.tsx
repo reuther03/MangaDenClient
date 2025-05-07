@@ -41,7 +41,7 @@ function TopHeader() {
                                     placeholder="Search…"
                                     onChange={e => setSearchTerm(e.target.value)}
                                 />
-                                <button type="submit">Search</button>
+                                <button className="btn" type="submit">Search</button>
                             </form>
                         </li>
                     </ul>
@@ -49,7 +49,7 @@ function TopHeader() {
                         {token ? (
                             <>
                                 <span>{user!.name}</span>
-                                <button onClick={logout}>Logout</button>
+                                <button className="btn" onClick={logout}>Logout</button>
                             </>
                         ) : (
                             <Link to="/login">Login</Link>

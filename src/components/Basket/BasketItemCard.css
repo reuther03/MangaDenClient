@@ -35,3 +35,19 @@
     width: 100%;
     grid-template-columns: 25% 3fr 2fr 1fr auto;
 }
+
+.qty-action {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.empty-basket {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    font-size: 24px;
+    color: red;
+}

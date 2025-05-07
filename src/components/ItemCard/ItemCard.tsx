@@ -25,7 +25,7 @@ export function ItemCard({item}: Props) {
                     <h2>{item.title}</h2>
                     <p><Link to={`/manga/author/${encodeURIComponent(item.author)}`}>{item.author}</Link></p>
                     <p>Price: {item.price} PLN</p>
-                    <button className="add-to-cart-button" onClick={handleAdd}>Add to Cart</button>
+                    <button className="btn" onClick={handleAdd}>Add to Cart</button>
                 </div>
             </div>
             <ToastContainer

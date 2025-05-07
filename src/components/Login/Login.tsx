@@ -65,7 +65,7 @@ export function Login() {
                     </div>
                         {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
 
-                    <button type="submit" className="btn-primary">LOGIN</button>
+                    <button type="submit" className="btn">LOGIN</button>
                     <a href="/forgot" className="forgot-link">Nie pamiętasz hasła?</a>
                 </form>
             </div>

@@ -7,7 +7,7 @@
     transition: background-color 0.3s ease;
 }
 
-button {
+.btn {
     cursor: pointer;
     background-color: #2cc4b2;
     border: none;
@@ -18,6 +18,14 @@ button {
     font-weight: 500;
 }
 
-button:hover {
+.btn--red {
+    background-color: #ff4d4d;
+}
+
+.btn:hover {
     background-color: #226e62;
+}
+
+.btn--red:hover {
+    background-color: #6e0b13;
 }

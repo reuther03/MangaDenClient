@@ -38,15 +38,6 @@
     margin-bottom: 1.25rem;
 }
 
-.btn-primary{
-    width: 220px;
-    padding: 0.75rem;
-    border-radius:4px;
-    font-weight:600;
-    align-self: center;
-    margin-top: 1rem;
-}
-
 .forgot-link{
     margin-top:1rem;
     text-align:center;
