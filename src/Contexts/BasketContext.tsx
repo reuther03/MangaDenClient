@@ -9,6 +9,7 @@ interface BasketContextValue {
     count: number;
     refresh: () => Promise<void>;
     add: (marketplaceItemId: string) => Promise<void>;
+    remove: (marketplaceItemId: string) => Promise<void>;
 }
 
 const BasketContext = createContext<BasketContextValue | undefined>(undefined);
@@ -66,9 +67,31 @@ export function BasketProvider({children}: { children: React.ReactNode }) {
         }
     };
 
+    const remove = async (marketplaceItemId: string) => {
+        try {
+            const res = await axios.delete<PostResponse>(baseURL, {
+                headers: {Authorization: `Bearer ${token}`},
+                data: {itemId: marketplaceItemId}
+            });
+            if (res.data.isSuccess) {
+                await refresh();
+                toast.success("✓ Added to basket");
+            } else {
+
+                toast.error(res.data.message || "Something went wrong");
+            }
+        } catch (err) {
+
+            const axErr = err as AxiosError<PostResponse>;
+            const apiMsg = axErr.response?.data?.message;
+
+            toast.error(apiMsg ?? axErr.message ?? "Network error");
+        }
+    };
+
 
     return (
-        <BasketContext.Provider value={{count, refresh, add}}>
+        <BasketContext.Provider value={{count, refresh, add, remove}}>
             {children}
         </BasketContext.Provider>
     );
