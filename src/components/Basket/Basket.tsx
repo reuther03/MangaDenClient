@@ -1,17 +1,19 @@
 ﻿import "./Basket.css";
-import {useEffect, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 import axios, {AxiosError} from "axios";
 import {BasketDto} from "./BasketDto.ts";
 import {useAuth} from "../../Auth/AuthProvider.tsx";
 import {ApiResponse} from "../../Responses/ApiResponse.ts";
 import {BasketItemCard} from "./BasketItemCard.tsx";
+import {useBasket} from "../../Contexts/BasketContext.tsx";
 
 export function Basket() {
     const url = 'http://localhost:5000/marketpalce-module/Basket';
 
     const {token} = useAuth();
+    const {remove} = useBasket()
 
-    const [basket, setBasketItem] = useState<BasketDto>();
+    const [basket, setBasket] = useState<BasketDto>();
     const [errorMessage, setErrorMessage] = useState<string | null>(null);
     const [loading, setLoading] = useState(true);
 
@@ -26,10 +28,9 @@ export function Basket() {
                     },
                     signal: controller.signal
                 });
-                console.log(response.data);
 
                 if (response.data.isSuccess) {
-                    setBasketItem(response.data.value);
+                    setBasket(response.data.value);
                 } else {
                     setErrorMessage(response.data.message);
                 }
@@ -43,6 +44,26 @@ export function Basket() {
         })();
     }, [token]);
 
+    const loadItems = useCallback(async () => {
+        if (!token) return;
+        setLoading(true);
+        try {
+            const response = await axios.get<ApiResponse<BasketDto>>(url, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                },
+            });
+            setBasket(response.data.value);
+        } finally {
+            setLoading(false);
+        }
+    }, [token]);
+
+    const handleRemove = async (id: string) => {
+        await remove(id);
+        await loadItems();
+    };
+
     return (
         <>
             <div id="basket">
@@ -51,8 +72,9 @@ export function Basket() {
                 <div className="basket-header">
                     <h1>Your Basket</h1>
                 </div>
+                {basket?.basketItems.length === 0 && <div className="empty-basket">Your basket is empty.</div>}
                 {basket?.basketItems.map(i => (
-                    <BasketItemCard key={i.id} id={i.id} marketplaceItem={i.marketplaceItem} quantity={i.quantity}/>
+                    <BasketItemCard key={i.id} item={i} remove={handleRemove}/>
                 ))}
             </div>
         </>
