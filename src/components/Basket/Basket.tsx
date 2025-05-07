@@ -48,6 +48,9 @@ export function Basket() {
             <div id="basket">
                 {loading && <div className="loading">Loading...</div>}
                 {errorMessage && <div className="error">{errorMessage}</div>}
+                <div className="basket-header">
+                    <h1>Your Basket</h1>
+                </div>
                 {basket?.basketItems.map(i => (
                     <BasketItemCard key={i.id} id={i.id} marketplaceItem={i.marketplaceItem} quantity={i.quantity}/>
                 ))}
