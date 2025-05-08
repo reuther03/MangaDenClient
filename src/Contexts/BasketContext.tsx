@@ -10,6 +10,7 @@ interface BasketContextValue {
     refresh: () => Promise<void>;
     add: (marketplaceItemId: string) => Promise<void>;
     remove: (marketplaceItemId: string) => Promise<void>;
+    updateQuantity: (marketplaceItemId: string, quantity: number) => Promise<void>;
 }
 
 const BasketContext = createContext<BasketContextValue | undefined>(undefined);
@@ -19,6 +20,7 @@ export function BasketProvider({children}: { children: React.ReactNode }) {
     const [count, setCount] = useState(0);
     const {token} = useAuth()
     const baseURL = 'http://localhost:5000/marketpalce-module/Basket';
+
 
     const refresh = useCallback(async () => {
 
@@ -75,13 +77,12 @@ export function BasketProvider({children}: { children: React.ReactNode }) {
             });
             if (res.data.isSuccess) {
                 await refresh();
-                toast.success("✓ Added to basket");
+                toast.success("✓ Removed from basket");
             } else {
 
                 toast.error(res.data.message || "Something went wrong");
             }
         } catch (err) {
-
             const axErr = err as AxiosError<PostResponse>;
             const apiMsg = axErr.response?.data?.message;
 
@@ -89,9 +90,27 @@ export function BasketProvider({children}: { children: React.ReactNode }) {
         }
     };
 
+    const updateQuantity = async (marketplaceItemId: string, quantity: number) => {
+        try {
+            const res = await axios.patch<PostResponse>(`http://localhost:5000/marketpalce-module/Basket/update-item-quantity`,
+                {itemId: marketplaceItemId, quantity: quantity},
+                {headers: {Authorization: `Bearer ${token}`}}
+            );
+            if (res.data.isSuccess) {
+                await refresh();
+            } else {
+                toast.error(res.data.message || "Something went wrong");
+            }
+        } catch (err) {
+            const axErr = err as AxiosError<PostResponse>;
+            const apiMsg = axErr.response?.data?.message;
+
+            toast.error(apiMsg ?? axErr.message ?? "Network error");
+        }
+    }
 
     return (
-        <BasketContext.Provider value={{count, refresh, add, remove}}>
+        <BasketContext.Provider value={{count, refresh, add, remove, updateQuantity}}>
             {children}
         </BasketContext.Provider>
     );

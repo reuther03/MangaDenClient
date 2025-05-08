@@ -5,6 +5,8 @@ import {Bounce, ToastContainer} from "react-toastify";
 export interface Props {
     item: BasketItemsDto;
     remove: (id: string) => void;
+    incrementQuantity: (id: string) => void;
+    decrementQuantity: (id: string) => void;
 }
 
 
@@ -12,6 +14,14 @@ export function BasketItemCard(props: Props) {
 
     const handleDelete = () => {
         props.remove(props.item.id);
+    };
+
+    const handleIncrementQuantity = () => {
+        props.incrementQuantity(props.item.id);
+    }
+
+    const handleDecrementQuantity = () => {
+        props.decrementQuantity(props.item.id);
     };
 
     return (
@@ -24,9 +34,9 @@ export function BasketItemCard(props: Props) {
                     <h2>{props.item.marketplaceItem.title}</h2>
                     <p>Price: {props.item.marketplaceItem.price} PLN</p>
                     <div className="qty-action">
-                        <button className="btn">-</button>
+                        <button type="button" className="btn" onClick={handleDecrementQuantity}>-</button>
                         <p>Quantity: {props.item.quantity}</p>
-                        <button className="btn">+</button>
+                        <button type="button" className="btn" onClick={handleIncrementQuantity}>+</button>
                     </div>
                     <button onClick={handleDelete} className="btn btn--red">Remove</button>
                 </div>

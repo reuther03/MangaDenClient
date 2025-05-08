@@ -11,7 +11,7 @@ export function Basket() {
     const url = 'http://localhost:5000/marketpalce-module/Basket';
 
     const {token} = useAuth();
-    const {remove} = useBasket()
+    const {remove, updateQuantity} = useBasket()
 
     const [basket, setBasket] = useState<BasketDto>();
     const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -64,6 +64,16 @@ export function Basket() {
         await loadItems();
     };
 
+    const handleIncrement = async (id: string) => {
+        await updateQuantity(id, 1);
+        await loadItems();
+    }
+
+    const handleDecrement = async (id: string) => {
+        await updateQuantity(id, -1);
+        await loadItems();
+    }
+
     return (
         <>
             <div id="basket">
@@ -74,7 +84,10 @@ export function Basket() {
                 </div>
                 {basket?.basketItems.length === 0 && <div className="empty-basket">Your basket is empty.</div>}
                 {basket?.basketItems.map(i => (
-                    <BasketItemCard key={i.id} item={i} remove={handleRemove}/>
+                    <BasketItemCard key={i.id} item={i}
+                                    remove={handleRemove}
+                                    incrementQuantity={handleIncrement}
+                                    decrementQuantity={handleDecrement}/>
                 ))}
             </div>
         </>
