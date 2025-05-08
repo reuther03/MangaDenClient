@@ -66,6 +66,11 @@ export function Login() {
                         {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
 
                     <button type="submit" className="btn">LOGIN</button>
+                    <div className="login-type">
+                        <div className="img-label">
+                            <img src="src/assets/google.png" alt="google icon"/>
+                        </div>
+                    </div>
                     <a href="/forgot" className="forgot-link">Nie pamiętasz hasła?</a>
                 </form>
             </div>
